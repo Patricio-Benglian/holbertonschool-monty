@@ -32,12 +32,23 @@ char **gettoken(void)
 int main(void)
 {
     char **args = NULL; /* tokenized input received*/
+    int i = 0;          /* iterator */
     instruction_t ops[] = {
         {"push", _push},
         {"pall", _pall},
         {NULL, NULL},
-    };
+    }; /* array of struct type instruction_t */
 
     while (1)
+    {
         args = gettoken();
+        while (ops[i].opcode)
+        {
+            if (!strcmp(args[0], ops[i].op))
+            {
+                ops[i].opcode; /* has to run function i guess with some args i dk not yet done */
+            }
+        }
+    }
+    return (0);
 }
