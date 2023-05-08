@@ -16,6 +16,13 @@ char **gettoken(void)
         free(input);
         exit(0);
     }
+    args = malloc(sizeof(char *) * 2);    /* allocate memory for both arguments */
+    args[0] = strtok(input, " \t\r\a\n"); /* set first argument */
+    args[1] = strtok(NULL, " \t\r\a\n");  /* set second argument */
+    args[2] = NULL;
+
+    free(input);
+    return (args);
 }
 
 /**
