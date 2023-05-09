@@ -48,7 +48,7 @@ typedef struct instruction_s
 /* Prototypes */
 void _push(stack_t **stack, unsigned int line_number);
 void _pall(stack_t **stack, unsigned int line_number);
-char **gettoken(void);
+char **gettoken(stack_t **stack);
 int main(void);
 
 #endif
