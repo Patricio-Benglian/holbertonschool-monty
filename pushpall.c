@@ -23,7 +23,7 @@ void push(stack_t **stack, unsigned int line_number)
     /*Establecer el puntero de pila para que apunte al nuevo nodo superior*/
     *stack = top;
 }
-void pall(stack_t **stack, UNUSED unsigned int line_number)
+void pall(stack_t **stack, unsigned int line_number)
 {
     stack_t *lec = *stack;
     /* Recorremos la pila hacia el último nodo */
@@ -43,4 +43,16 @@ void pall(stack_t **stack, UNUSED unsigned int line_number)
             printf("0\n");/* Si es nulo, imprimimos 0 */
         lec = lec->prev;/* Movemos el puntero hacia el nodo anterior */
     }
+}
+void pint(stack_t **stack, unsigned int line_number)
+{
+    stack_t *lec = *stack;
+
+    if (lec == NULL)/* Verificar si la pila está vacía */
+	{
+		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+    printf("%d\n", lec->n);/* Imprimir el valor en la cima de la pila */
+    lec = lec->next;/* Actualizar la cima de la pila */
 }
