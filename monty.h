@@ -2,11 +2,19 @@
 #define MONTY_H
 
 /* Libraries */
+#include <stddef.h>
+#include <fcntl.h>
+#include <string.h>
 #include <stdio.h>
-#include <strings.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+
+/* Global Variables */
+extern unsigned int line_number = 0;
 
 /* Structures */
-
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer

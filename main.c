@@ -32,7 +32,9 @@ char **gettoken(void)
 int main(void)
 {
     char **args = NULL; /* tokenized input received*/
-    int i = 0;          /* iterator */
+    stack_t **stack;
+    unsigned int line_number; /* maybe these are extern? */
+    int i = 0;                /* iterator */
     instruction_t ops[] = {
         {"push", _push},
         {"pall", _pall},
@@ -41,12 +43,12 @@ int main(void)
 
     while (1)
     {
-        args = gettoken();
+        args = gettoken(); /* getline and tokenizes */
         while (ops[i].opcode)
         {
-            if (!strcmp(args[0], ops[i].op))
+            if (!strcmp(args[0], ops[i].opcode))
             {
-                ops[i].opcode; /* has to run function i guess with some args i dk not yet done */
+                ops[i].f(stack, line_number); /* has to run function i guess with some args i dk not yet done */
             }
         }
     }
