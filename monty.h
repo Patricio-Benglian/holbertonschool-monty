@@ -1,6 +1,7 @@
 #ifndef MONTY_H
 #define MONTY_H
 
+#define DELIM " \t"
 /* Libraries */
 #include <stddef.h>
 #include <fcntl.h>
@@ -12,7 +13,6 @@
 #include <sys/stat.h>
 
 /* Global Variables */
-extern unsigned int line_number = 0;
 
 /* Structures */
 /**
@@ -48,7 +48,14 @@ typedef struct instruction_s
 /* Prototypes */
 void _push(stack_t **stack, unsigned int line_number);
 void _pall(stack_t **stack, unsigned int line_number);
+void _pint(stack_t **stack, unsigned int line_number);
+void _pop(stack_t **stack, unsigned int line_number);
+void _swap(stack_t **stack, unsigned int line_number);
+void _add(stack_t **stack, unsigned int line_number);
+void _nop(stack_t **stack, unsigned int line_number);
 char **gettoken(stack_t **stack);
-int main(void);
+int main(int argc, char **argv);
+void arg_get(char *file);
+void (*get_func(char *arg))(stack_t **stack, unsigned int line_number);
 
 #endif
