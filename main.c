@@ -35,7 +35,7 @@ void (*get_func(char *arg))(stack_t **stack, unsigned int line_number)
 void arg_get(char *file)
 {
 	void (*func)(stack_t **stack, unsigned int line_number);
-	char *text = NULL, *argument = NULL;
+	char *text = NULL, *argument = NULL, *num = NULL;
 	size_t len = 0;
 	int fd; /* file descriptor */
 	stack_t *stackNode = NULL;
@@ -56,22 +56,25 @@ void arg_get(char *file)
 	/* Getline */
 	while (getline(&text, &len, file) == -1)
 	{
+		line_number++;
 		argument = strtok(text, DELIM);
-		if (!argument)
+		if (argument == NULL)
 		{
 			/*return or exit or something*/
 		}
-		line_number++;
 		func = get_func(argument);
-		stackNode->n = atoi(argument); /* set value of n*/
+		if (func == _pop)
+			line_number--;
+		if (func == _push)
+		{
+			num = strtok(NULL, DELIM);
+			stackNode->n = atoi(argument); /* set value of n*/
+		}
 		func(&stackNode, line_number);
 		argument = strtok(NULL, DELIM);
-		line_number++;
 	}
 	free(text);
 	free(argument);
-
-	/* Error cases */
 }
 
 /**
