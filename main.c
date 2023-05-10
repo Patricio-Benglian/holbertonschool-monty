@@ -6,7 +6,7 @@
  */
 void (*get_func(char *arg))(stack_t **stack, unsigned int line_number)
 {
-	int i; /* iterator */
+	int i = 0; /* iterator */
 	instruction_t ops[] = {
 		{"push", _push},
 		{"pall", _pall},
@@ -26,6 +26,7 @@ void (*get_func(char *arg))(stack_t **stack, unsigned int line_number)
 		}
 	}
 	/* Error Case */
+	exit(EXIT_FAILURE);
 }
 /**
  * arg_get - separates content of file into arguments
@@ -34,7 +35,7 @@ void (*get_func(char *arg))(stack_t **stack, unsigned int line_number)
 void arg_get(char *file)
 {
 	void (*func)(stack_t **stack, unsigned int line_number);
-	char *text = NULL, *argument = NULL, *argument2 = NULL;
+	char *text = NULL, *argument = NULL;
 	size_t len = 0;
 	int fd; /* file descriptor */
 	stack_t *stackNode = NULL;
@@ -53,24 +54,21 @@ void arg_get(char *file)
 		fprintf(stderr, "Error: Can't open file %s", file);
 	}
 	/* Getline */
-	if (getline(&text, &len, file) == -1)
+	while (getline(&text, &len, file) == -1)
 	{
-		free(text);
-		/* Error Case */
-	}
-
-	argument = strtok(text, DELIM);
-	line_number++;
-	while (argument)
-	{
-		argument2 = strtok(NULL, DELIM);
-		/* Isdigit goes here to make sure arg2 is a number */
+		argument = strtok(text, DELIM);
+		if (!argument)
+		{
+			/*return or exit or something*/
+		}
+		line_number++;
 		func = get_func(argument);
-		stackNode->n = atoi(argument2); /* set value of n*/
+		stackNode->n = atoi(argument); /* set value of n*/
 		func(&stackNode, line_number);
 		argument = strtok(NULL, DELIM);
 		line_number++;
 	}
+	free(text);
 	free(argument);
 
 	/* Error cases */
