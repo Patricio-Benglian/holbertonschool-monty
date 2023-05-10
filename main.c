@@ -35,9 +35,9 @@ void (*get_func(char *arg))(stack_t **stack, unsigned int line_number)
 void arg_get(char *file)
 {
 	void (*func)(stack_t **stack, unsigned int line_number);
-	char *text = NULL, *argument = NULL, *num = NULL;
+	char *text = NULL, *argument = NULL;
 	size_t len = 0;
-	int fd; /* file descriptor */
+	FILE *fd; /* file descriptor */
 	stack_t *stackNode = NULL;
 	unsigned int line_number = 0; /* Maybe extern */
 
@@ -48,31 +48,30 @@ void arg_get(char *file)
 		exit(EXIT_FAILURE);
 	}
 	/* Open file */
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
+	fd = fopen(file, "r");
+	if (!fd)
 	{
 		fprintf(stderr, "Error: Can't open file %s", file);
 	}
 	/* Getline */
-	while (getline(&text, &len, file) == -1)
+	while (getline(&text, &len, fd) != -1)
 	{
 		line_number++;
+		printf("%u\n", line_number);
 		argument = strtok(text, DELIM);
 		if (argument == NULL)
 		{
-			/*return or exit or something*/
+			exit(EXIT_SUCCESS);
 		}
 		func = get_func(argument);
-		if (func == _pop)
-			line_number--;
 		if (func == _push)
 		{
-			num = strtok(NULL, DELIM);
-			stackNode->n = atoi(argument); /* set value of n*/
+			nodeValue = strtok(NULL, DELIM);
 		}
 		func(&stackNode, line_number);
 		argument = strtok(NULL, DELIM);
 	}
+	fclose(fd);
 	free(text);
 	free(argument);
 }
@@ -86,9 +85,11 @@ void arg_get(char *file)
  */
 int main(int argc, char **argv)
 {
-	/* If correct arg count, run */
+
 	if (argc == 2)
+	{
 		arg_get(argv[1]);
+	}
 
 	/* Error stuff */
 	else

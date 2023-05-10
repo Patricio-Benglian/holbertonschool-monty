@@ -13,7 +13,7 @@
 #include <sys/stat.h>
 
 /* Global Variables */
-
+char *nodeValue;
 /* Structures */
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
