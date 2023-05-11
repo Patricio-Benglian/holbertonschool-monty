@@ -13,9 +13,7 @@ void _add(stack_t **stack, unsigned int line_number)
     }
     sum = lec->next->n + lec->n;
     lec = lec->next;
-    printf("texto\n");
     _pop(stack, line_number);
-    printf("contexto\n");
     lec->n = sum;
 }
 

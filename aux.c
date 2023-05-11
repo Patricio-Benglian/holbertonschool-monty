@@ -10,6 +10,7 @@ void _push(stack_t **stack, unsigned int line_number)
 {
     int nodeNum; /* nodeValue turned into an integer */
     stack_t *newNode = NULL;
+    (void)line_number;
 
     nodeNum = atoi(nodeValue);
     newNode = malloc(sizeof(stack_t));
@@ -72,7 +73,7 @@ void _pint(stack_t **stack, unsigned int line_number)
 
 void _pop(stack_t **stack, unsigned int line_number)
 {
-    /*
+
     stack_t *lec = *stack;
 
     if (*stack == NULL)
@@ -84,7 +85,6 @@ void _pop(stack_t **stack, unsigned int line_number)
     if (*stack != NULL)
         (*stack)->prev = NULL;
     free(lec);
-    */
 }
 
 /**
@@ -95,18 +95,17 @@ void _pop(stack_t **stack, unsigned int line_number)
 
 void _swap(stack_t **stack, unsigned int line_number)
 {
-    /*
+
     stack_t *lec;
     int val;
 
     lec = *stack;
-if (lec == NULL || lec->next == NULL)
-{
-    fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
-    exit(EXIT_FAILURE);
-}
-val = lec->n;
-lec->n = lec->next->n;
-lec->next->n = val;
-*/
+    if (lec == NULL || lec->next == NULL)
+    {
+        fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
+        exit(EXIT_FAILURE);
+    }
+    val = lec->n;
+    lec->n = lec->next->n;
+    lec->next->n = val;
 }

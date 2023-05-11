@@ -38,14 +38,12 @@ void (*get_func(char *arg, unsigned int line_number))(stack_t **stack, unsigned 
 	{
 		if (strcmp(ops[i].opcode, arg) == 0)
 		{
-			// printf("%s\n", ops[i].opcode);
 			return (ops[i].f);
 		}
 		i++;
 	}
 	/* Error Case */
 	return (NULL);
-	/* need frees */
 	fprintf(stderr, "L%u: unknown instruction\n", line_number);
 	exit(EXIT_FAILURE);
 }
@@ -71,14 +69,12 @@ void arg_get(char *file)
 	stackNode->n = 0;
 	stackNode->next = NULL;
 	stackNode->prev = NULL;
-	/* Open file */
 	fd = fopen(file, "r");
 	if (!fd)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", file);
 		exit(EXIT_FAILURE);
 	}
-	/* Getline until EOF */
 	while (getline(&text, &len, fd) != -1)
 	{
 		line_number++;
