@@ -1,17 +1,21 @@
 #ifndef MONTY_H
 #define MONTY_H
 
+#define DELIM " \t\n\a\r"
+
+/* Libraries */
 #include <stddef.h>
 #include <fcntl.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
+#include <ctype.h> /* isdigit */
 
-#define MAIN_H
+/* Global Variables */
+char *nodeValue;
 
+/* Structures */
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -41,5 +45,27 @@ typedef struct instruction_s
     char *opcode;
     void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
+
+/* Prototypes */
+void _push(stack_t **stack, unsigned int line_number);
+void _pall(stack_t **stack, unsigned int line_number);
+void _pint(stack_t **stack, unsigned int line_number);
+void _pop(stack_t **stack, unsigned int line_number);
+void _swap(stack_t **stack, unsigned int line_number);
+void _add(stack_t **stack, unsigned int line_number);
+void _nop(stack_t **stack, unsigned int line_number);
+char **gettoken(stack_t **stack);
+int main(int argc, char **argv);
+void arg_get(char *file);
+void (*get_func(char *arg, unsigned int line_number))(stack_t **stack, unsigned int line_number);
+int _isdigit(char *stringNum);
+void free_list(stack_t *head);
+
+/* Error Prototypes */
+/*
+void mallocErr(unsigned int line_number , TBD);
+void openErr(unsigned int line_number, TBD);
+void funcErr(unsigned int line_number, TBD);
+*/
 
 #endif
