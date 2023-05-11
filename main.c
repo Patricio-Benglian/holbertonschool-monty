@@ -86,6 +86,8 @@ void arg_get(char *file)
 		{
 			printf("HI\n");
 			fclose(fd);
+			free(text);
+			free(argument);
 			exit(EXIT_SUCCESS);
 		}
 		func = get_func(argument, line_number);
@@ -106,7 +108,6 @@ void arg_get(char *file)
 	fclose(fd);
 	free(stackNode);
 	free(text);
-	free(argument);
 }
 
 /**
