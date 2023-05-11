@@ -37,15 +37,12 @@ void _push(stack_t **stack, unsigned int line_number)
 
 void _pall(stack_t **stack, unsigned int line_number)
 {
-    stack_t *read = *stack;
-    /* Recorremos la pila hacia el último nodo */
+    stack_t *temp = *stack;
 
-    /* Recorremos la pila de último a primer nodo */
-    while (read->next)
+    while (temp->next)
     {
-        /* Si el nodo actual no es nulo, imprimimos su valor */
-        printf("%d\n", read->n);
-        read = read->next; /* Movemos el puntero hacia el nodo anterior */
+        printf("%i\n", temp->n);
+        temp = temp->next;
     }
 }
 
@@ -65,7 +62,6 @@ void _pint(stack_t **stack, unsigned int line_number)
         exit(EXIT_FAILURE);
     }
     printf("%d\n", read->n); /* Imprimir el valor en la cima de la pila */
-    read = read->next;       /* Actualizar la cima de la pila */
 }
 
 /**
@@ -76,6 +72,19 @@ void _pint(stack_t **stack, unsigned int line_number)
 
 void _pop(stack_t **stack, unsigned int line_number)
 {
+    /*
+    stack_t *lec = *stack;
+
+    if (*stack == NULL)
+    {
+        fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
+        exit(EXIT_FAILURE);
+    }
+    *stack = lec->next;
+    if (*stack != NULL)
+        (*stack)->prev = NULL;
+    free(lec);
+    */
 }
 
 /**
@@ -86,24 +95,18 @@ void _pop(stack_t **stack, unsigned int line_number)
 
 void _swap(stack_t **stack, unsigned int line_number)
 {
-}
+    /*
+    stack_t *lec;
+    int val;
 
-/**
- * _add - prints value at the top of the stack
- * @stack: the stack we are working in
- * @line_number: the number of the command being executed
- */
-
-void _add(stack_t **stack, unsigned int line_number)
+    lec = *stack;
+if (lec == NULL || lec->next == NULL)
 {
+    fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
+    exit(EXIT_FAILURE);
 }
-
-/**
- * _nop - prints value at the top of the stack
- * @stack: the stack we are working in
- * @line_number: the number of the command being executed
- */
-
-void _nop(stack_t **stack, unsigned int line_number)
-{
+val = lec->n;
+lec->n = lec->next->n;
+lec->next->n = val;
+*/
 }

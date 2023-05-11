@@ -55,7 +55,7 @@ void (*get_func(char *arg, unsigned int line_number))(stack_t **stack, unsigned 
  */
 void arg_get(char *file)
 {
-	void (*func)(stack_t **stack, unsigned int line_number);
+	void (*func)(stack_t **stack, unsigned int line_number) = NULL;
 	char *text = NULL, *argument = NULL;
 	size_t len = 0;
 	FILE *fd; /* file descriptor */
@@ -68,6 +68,9 @@ void arg_get(char *file)
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
+	stackNode->n = 0;
+	stackNode->next = NULL;
+	stackNode->prev = NULL;
 	/* Open file */
 	fd = fopen(file, "r");
 	if (!fd)
@@ -75,21 +78,11 @@ void arg_get(char *file)
 		fprintf(stderr, "Error: Can't open file %s\n", file);
 		exit(EXIT_FAILURE);
 	}
-	/* Getline */
+	/* Getline until EOF */
 	while (getline(&text, &len, fd) != -1)
 	{
 		line_number++;
-		printf("%u\n", line_number);
 		argument = strtok(text, DELIM);
-		printf("%s\n", argument);
-		if (!argument)
-		{
-			printf("HI\n");
-			fclose(fd);
-			free(text);
-			free(argument);
-			exit(EXIT_SUCCESS);
-		}
 		func = get_func(argument, line_number);
 		if (func == NULL)
 		{
@@ -105,9 +98,11 @@ void arg_get(char *file)
 		}
 		func(&stackNode, line_number);
 	}
+
 	fclose(fd);
-	free(stackNode);
 	free(text);
+	free_list(stackNode);
+	exit(EXIT_SUCCESS);
 }
 
 /**
