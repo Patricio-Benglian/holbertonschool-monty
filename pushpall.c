@@ -56,3 +56,21 @@ void pint(stack_t **stack, unsigned int line_number)
     printf("%d\n", lec->n);/* Imprimir el valor en la cima de la pila */
     lec = lec->next;/* Actualizar la cima de la pila */
 }
+void pop(stack_t **stack, unsigned int line_number)
+{
+    stack_t *lec = *stack;
+
+    if (*stack == NULL)/*Verificar si la pila está vacía*/
+    {
+        fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
+        exit(EXIT_FAILURE);
+    }
+    *stack = lec->next/*Actualizar el puntero de la pila al siguiente nodo*/
+    if (*stack != NULL)/*Verificar si la pila aún tiene nodos*/
+        (*stack)->prev = NULL;/*Actualizar puntero previo del nuevo nodo superior*/
+    free(lec);/*Liberar el nodo superior anterior*/
+}
+void swap(stack_t **stack, unsigned int line_number)
+{
+    stack_t *lec;
+}
