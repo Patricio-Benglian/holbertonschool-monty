@@ -73,4 +73,16 @@ void pop(stack_t **stack, unsigned int line_number)
 void swap(stack_t **stack, unsigned int line_number)
 {
     stack_t *lec;
+    int val;
+
+    lec = *stack;
+    /*Comprueba si hay al menos dos elementos en la pila*/
+    if (lec == NULL || lec->next == NULL)
+    {
+        fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
+        exit(EXIT_FAILURE);
+    }
+    val = lec->n;/*guardo n en val*/
+    lec->n = lec->next->n;/*guardo el valor siguiente de n dentro de n*/
+    lec->next->n = val;/*guardo el valor guardado en val en la siguiente n*/
 }
