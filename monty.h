@@ -1,7 +1,8 @@
 #ifndef MONTY_H
 #define MONTY_H
 
-#define DELIM " \t"
+#define DELIM " \t\n\a\r"
+
 /* Libraries */
 #include <stddef.h>
 #include <fcntl.h>
@@ -9,11 +10,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
+#include <ctype.h> /* isdigit */
 
 /* Global Variables */
 char *nodeValue;
+
 /* Structures */
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -56,6 +57,14 @@ void _nop(stack_t **stack, unsigned int line_number);
 char **gettoken(stack_t **stack);
 int main(int argc, char **argv);
 void arg_get(char *file);
-void (*get_func(char *arg))(stack_t **stack, unsigned int line_number);
+void (*get_func(char *arg, unsigned int line_number))(stack_t **stack, unsigned int line_number);
+int _isdigit(char *stringNum);
+
+/* Error Prototypes */
+/*
+void mallocErr(unsigned int line_number , TBD);
+void openErr(unsigned int line_number, TBD);
+void funcErr(unsigned int line_number, TBD);
+*/
 
 #endif

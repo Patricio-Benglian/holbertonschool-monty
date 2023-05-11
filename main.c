@@ -1,10 +1,26 @@
 #include "monty.h"
 
 /**
+ * _isdigit - checks if entire string is digits using isdigit
+ * @stringNum: string of supposed numbers
+ * Return: 1 if is digit, 0 else
+ */
+int _isdigit(char *stringNum)
+{
+	int i; /* iterator */
+	for (i = 0; stringNum[i]; i++)
+	{
+		if (isdigit(stringNum[i]) == 0)
+			return (0);
+	}
+	return (1);
+}
+
+/**
  * get_func - finds relevant function
  * @arg: argument to compare to table
  */
-void (*get_func(char *arg))(stack_t **stack, unsigned int line_number)
+void (*get_func(char *arg, unsigned int line_number))(stack_t **stack, unsigned int line_number)
 {
 	int i = 0; /* iterator */
 	instruction_t ops[] = {
@@ -18,14 +34,19 @@ void (*get_func(char *arg))(stack_t **stack, unsigned int line_number)
 		{NULL, NULL},
 	};
 
-	while (ops[i].f)
+	while (ops[i].f != NULL)
 	{
-		if (!strcmp(ops[i].opcode, arg))
+		if (strcmp(ops[i].opcode, arg) == 0)
 		{
+			// printf("%s\n", ops[i].opcode);
 			return (ops[i].f);
 		}
+		i++;
 	}
 	/* Error Case */
+	return (NULL);
+	/* need frees */
+	fprintf(stderr, "L%u: unknown instruction\n", line_number);
 	exit(EXIT_FAILURE);
 }
 /**
@@ -39,7 +60,7 @@ void arg_get(char *file)
 	size_t len = 0;
 	FILE *fd; /* file descriptor */
 	stack_t *stackNode = NULL;
-	unsigned int line_number = 0; /* Maybe extern */
+	unsigned int line_number = 0;
 
 	stackNode = malloc(sizeof(stack_t));
 	if (stackNode == NULL)
@@ -51,7 +72,8 @@ void arg_get(char *file)
 	fd = fopen(file, "r");
 	if (!fd)
 	{
-		fprintf(stderr, "Error: Can't open file %s", file);
+		fprintf(stderr, "Error: Can't open file %s\n", file);
+		exit(EXIT_FAILURE);
 	}
 	/* Getline */
 	while (getline(&text, &len, fd) != -1)
@@ -59,19 +81,30 @@ void arg_get(char *file)
 		line_number++;
 		printf("%u\n", line_number);
 		argument = strtok(text, DELIM);
-		if (argument == NULL)
+		printf("%s\n", argument);
+		if (!argument)
 		{
+			printf("HI\n");
+			fclose(fd);
 			exit(EXIT_SUCCESS);
 		}
-		func = get_func(argument);
+		func = get_func(argument, line_number);
+		if (func == NULL)
+		{
+			/* funcErr*/
+		}
 		if (func == _push)
 		{
 			nodeValue = strtok(NULL, DELIM);
+			if (_isdigit(nodeValue) == 0)
+			{
+				/* opErr Case */
+			}
 		}
 		func(&stackNode, line_number);
-		argument = strtok(NULL, DELIM);
 	}
 	fclose(fd);
+	free(stackNode);
 	free(text);
 	free(argument);
 }
