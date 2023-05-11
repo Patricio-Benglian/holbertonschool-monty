@@ -86,3 +86,23 @@ void swap(stack_t **stack, unsigned int line_number)
     lec->n = lec->next->n;/*guardo el valor siguiente de n dentro de n*/
     lec->next->n = val;/*guardo el valor guardado en val en la siguiente n*/
 }
+void add(stack_t **stack, unsigned int line_number)
+{
+    stack_t *lec;
+    int sum;
+
+    lec = *stack;
+    /*Comprueba si hay al menos dos elementos en la pila*/
+    if (lec == NULL || lec->next == NULL)
+    {
+        fprintf(stderr, "L%d: an't add, stack too short\n", line_number);
+        exit(EXIT_FAILURE);
+    }
+    sum = lec->next->n + lec->n;/*Suma los dos primeros elementos de la pila*/
+    pop(stack, line_number);/*Elimina el srgundo elemento de la pila*/
+    stack->n = sum; /*Sustituye el valor del primer elemento de la pila por el resultado de la suma */
+}
+void add(stack_t **stack, unsigned int line_number)
+{
+    ;
+}
