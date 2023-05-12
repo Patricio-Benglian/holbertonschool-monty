@@ -58,7 +58,7 @@ void _pint(stack_t **stack, unsigned int line_number)
 {
 	stack_t *read = *stack;
 
-	if (read == NULL) /* Verificar si la pila está vacía */
+	if (!stack || !(*stack)) /* Verificar si la pila está vacía */
 	{
 		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
 		exit(EXIT_FAILURE);

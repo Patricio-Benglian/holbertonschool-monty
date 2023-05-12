@@ -1,7 +1,7 @@
 #ifndef MONTY_H
 #define MONTY_H
 
-#define DELIM " \t\n\a\r"
+#define DELIM " \t\n"
 
 /* Libraries */
 #include <stddef.h>

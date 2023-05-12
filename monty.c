@@ -75,6 +75,8 @@ void arg_get(char *file)
 	{
 		line_number++;
 		argument = strtok(text, DELIM);
+		if (!argument)
+			continue;
 		func = get_func(argument);
 		if (func == NULL)
 			funcErr(line_number, stackNode, text, argument, fd);
