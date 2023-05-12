@@ -62,10 +62,9 @@ int _isdigit(char *stringNum);
 void free_list(stack_t *head);
 
 /* Error Prototypes */
-/*
-void mallocErr(unsigned int line_number , TBD);
-void openErr(unsigned int line_number, TBD);
-void funcErr(unsigned int line_number, TBD);
-*/
+void mallocErr(void);
+void openErr(char *file);
+void funcErr(unsigned int line_number, stack_t *head, char *text, char *opcode, FILE *fd);
+void pushErr(unsigned int line_number, stack_t *head, char *text, FILE *fd);
 
 #endif

@@ -2,19 +2,19 @@
 
 void _add(stack_t **stack, unsigned int line_number)
 {
-    stack_t *lec;
-    int sum;
+	stack_t *lec;
+	int sum;
 
-    lec = *stack;
-    if (lec == NULL || lec->next == NULL)
-    {
-        fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
-        exit(EXIT_FAILURE);
-    }
-    sum = lec->next->n + lec->n;
-    lec = lec->next;
-    _pop(stack, line_number);
-    lec->n = sum;
+	lec = *stack;
+	if (lec == NULL || lec->next == NULL)
+	{
+		fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	sum = lec->next->n + lec->n;
+	lec = lec->next;
+	_pop(stack, line_number);
+	lec->n = sum;
 }
 
 /**
@@ -25,6 +25,6 @@ void _add(stack_t **stack, unsigned int line_number)
 
 void _nop(stack_t **stack, unsigned int line_number)
 {
-    (void)stack;
-    (void)line_number;
+	(void)stack;
+	(void)line_number;
 }

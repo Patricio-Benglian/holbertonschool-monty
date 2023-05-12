@@ -10,10 +10,10 @@ int _isdigit(char *stringNum)
 	int i; /* iterator */
 	for (i = 0; stringNum[i]; i++)
 	{
-		if (isdigit(stringNum[i]) == 0)
-			return (0);
+		if (isdigit(stringNum[i]) != 0)
+			return (1);
 	}
-	return (1);
+	return (0);
 }
 
 /**
@@ -44,8 +44,6 @@ void (*get_func(char *arg, unsigned int line_number))(stack_t **stack, unsigned 
 	}
 	/* Error Case */
 	return (NULL);
-	fprintf(stderr, "L%u: unknown instruction\n", line_number);
-	exit(EXIT_FAILURE);
 }
 /**
  * arg_get - separates content of file into arguments
@@ -62,39 +60,28 @@ void arg_get(char *file)
 
 	stackNode = malloc(sizeof(stack_t));
 	if (stackNode == NULL)
-	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
+		mallocErr();
 	stackNode->n = 0;
 	stackNode->next = NULL;
 	stackNode->prev = NULL;
 	fd = fopen(file, "r");
 	if (!fd)
-	{
-		fprintf(stderr, "Error: Can't open file %s\n", file);
-		exit(EXIT_FAILURE);
-	}
+		openErr(file);
 	while (getline(&text, &len, fd) != -1)
 	{
 		line_number++;
 		argument = strtok(text, DELIM);
 		func = get_func(argument, line_number);
 		if (func == NULL)
-		{
-			/* funcErr*/
-		}
+			funcErr(line_number, stackNode, text, argument, fd);
 		if (func == _push)
 		{
 			nodeValue = strtok(NULL, DELIM);
 			if (_isdigit(nodeValue) == 0)
-			{
-				/* opErr Case */
-			}
+				pushErr(line_number, stackNode, text, fd);
 		}
 		func(&stackNode, line_number);
 	}
-
 	fclose(fd);
 	free(text);
 	free_list(stackNode);
