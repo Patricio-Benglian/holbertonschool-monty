@@ -8,8 +8,12 @@
 int _isdigit(char *stringNum)
 {
 	int i; /* iterator */
+
+	if (stringNum[0] == '-')
+		stringNum[0] = 0;
 	for (i = 0; stringNum[i]; i++)
 	{
+
 		if (isdigit(stringNum[i]) != 0)
 			return (1);
 	}
