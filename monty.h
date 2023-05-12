@@ -57,7 +57,7 @@ void _nop(stack_t **stack, unsigned int line_number);
 char **gettoken(stack_t **stack);
 int main(int argc, char **argv);
 void arg_get(char *file);
-void (*get_func(char *arg, unsigned int line_number))(stack_t **stack, unsigned int line_number);
+void (*get_func(char *arg))(stack_t **stack, unsigned int line_number);
 int _isdigit(char *stringNum);
 void free_list(stack_t *head);
 

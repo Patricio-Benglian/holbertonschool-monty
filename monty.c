@@ -20,7 +20,7 @@ int _isdigit(char *stringNum)
  * get_func - finds relevant function
  * @arg: argument to compare to table
  */
-void (*get_func(char *arg, unsigned int line_number))(stack_t **stack, unsigned int line_number)
+void (*get_func(char *arg))(stack_t **stack, unsigned int line_number)
 {
 	int i = 0; /* iterator */
 	instruction_t ops[] = {
@@ -71,7 +71,7 @@ void arg_get(char *file)
 	{
 		line_number++;
 		argument = strtok(text, DELIM);
-		func = get_func(argument, line_number);
+		func = get_func(argument);
 		if (func == NULL)
 			funcErr(line_number, stackNode, text, argument, fd);
 		if (func == _push)
