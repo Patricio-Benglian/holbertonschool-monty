@@ -5,24 +5,26 @@
  * @stringNum: string of supposed numbers
  * Return: 1 if is digit, 0 else
  */
-int _isdigit(char *stringNum)
+int _isdigit(char stringNum[])
 {
 	int i; /* iterator */
 
 	if (stringNum[0] == '-')
-		stringNum[0] = 0;
+		stringNum[0] = '0';
 	for (i = 0; stringNum[i]; i++)
 	{
-
-		if (isdigit(stringNum[i]) != 0)
-			return (1);
+		if (isdigit(stringNum[i]) == 0)
+		{
+			return (0);
+		}
 	}
-	return (0);
+	return (1);
 }
 
 /**
  * get_func - finds relevant function
  * @arg: argument to compare to table
+ * Return: function
  */
 void (*get_func(char *arg))(stack_t **stack, unsigned int line_number)
 {
@@ -83,9 +85,7 @@ void arg_get(char *file)
 		if (func == _push)
 		{
 			nodeValue = strtok(NULL, DELIM);
-			if (!nodeValue)
-				pushErr(line_number, stackNode, text, fd);
-			if (_isdigit(nodeValue) == 0)
+			if (!nodeValue || _isdigit(nodeValue) == 0)
 				pushErr(line_number, stackNode, text, fd);
 		}
 		func(&stackNode, line_number);
