@@ -83,6 +83,8 @@ void arg_get(char *file)
 		if (func == _push)
 		{
 			nodeValue = strtok(NULL, DELIM);
+			if (!nodeValue)
+				pushErr(line_number, stackNode, text, fd);
 			if (_isdigit(nodeValue) == 0)
 				pushErr(line_number, stackNode, text, fd);
 		}
