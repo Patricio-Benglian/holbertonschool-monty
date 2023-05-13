@@ -1,7 +1,7 @@
 #ifndef MONTY_H
 #define MONTY_H
 
-#define DELIM " \t\n"
+#define DELIM " \t\n\a\r"
 
 /* Libraries */
 #include <stddef.h>
@@ -58,13 +58,13 @@ char **gettoken(stack_t **stack);
 int main(int argc, char **argv);
 void arg_get(char *file);
 void (*get_func(char *arg))(stack_t **stack, unsigned int line_number);
-int _isdigit(char *stringNum);
+int _isdigit(char stringNum[]);
 void free_list(stack_t *head);
 
 /* Error Prototypes */
 void mallocErr(void);
 void openErr(char *file);
-void funcErr(unsigned int line_number, stack_t *head, char *text, char *opcode, FILE *fd);
+void funcErr(unsigned int l_n, stack_t *h, char *text, char *opc, FILE *fd);
 void pushErr(unsigned int line_number, stack_t *head, char *text, FILE *fd);
 
 #endif

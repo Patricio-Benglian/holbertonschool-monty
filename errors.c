@@ -34,14 +34,16 @@ void openErr(char *file)
 
 /**
  * funcErr - handles function parse exit case
- * @line_number: line which failed
- * @stackNode: stack to be freed
+ * @l_n: line which failed
+ * @h: stack to be freed
  * @text: file input buffer to be freed
+ * @opc: opcode
+ * @fd: file descriptor that was opened
  */
-void funcErr(unsigned int line_number, stack_t *head, char *text, char *opcode, FILE *fd)
+void funcErr(unsigned int l_n, stack_t *h, char *text, char *opc, FILE *fd)
 {
-	fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
-	free_list(head);
+	fprintf(stderr, "L%u: unknown instruction %s\n", l_n, opc);
+	free_list(h);
 	free(text);
 	fclose(fd);
 	exit(EXIT_FAILURE);
@@ -50,8 +52,9 @@ void funcErr(unsigned int line_number, stack_t *head, char *text, char *opcode, 
 /**
  * pushErr - handles push function exit case
  * @line_number: line which failed
- * @stackNode: stack to be freed
+ * @head: stack to be freed
  * @text: file input buffer to be freed
+ * @fd: file descriptor that was opened
  */
 void pushErr(unsigned int line_number, stack_t *head, char *text, FILE *fd)
 {
