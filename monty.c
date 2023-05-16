@@ -31,6 +31,7 @@ void (*get_func(char *arg, unsigned int line_number))(stack_t **stack, unsigned 
 		{"swap", _swap},
 		{"add", _add},
 		{"nop", _nop},
+		{"sub", _sub},
 		{NULL, NULL},
 	};
 
@@ -82,7 +83,8 @@ void arg_get(char *file)
 		func = get_func(argument, line_number);
 		if (func == NULL)
 		{
-			/* funcErr*/
+			line_number++;
+			continue;
 		}
 		if (func == _push)
 		{

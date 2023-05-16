@@ -60,12 +60,6 @@ void arg_get(char *file);
 void (*get_func(char *arg, unsigned int line_number))(stack_t **stack, unsigned int line_number);
 int _isdigit(char *stringNum);
 void free_list(stack_t *head);
-
-/* Error Prototypes */
-/*
-void mallocErr(unsigned int line_number , TBD);
-void openErr(unsigned int line_number, TBD);
-void funcErr(unsigned int line_number, TBD);
-*/
+void _sub(stack_t **stack, unsigned int line_number);
 
 #endif
