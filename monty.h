@@ -57,9 +57,14 @@ void _nop(stack_t **stack, unsigned int line_number);
 char **gettoken(stack_t **stack);
 int main(int argc, char **argv);
 void arg_get(char *file);
-void (*get_func(char *arg, unsigned int line_number))(stack_t **stack, unsigned int line_number);
-int _isdigit(char *stringNum);
+void (*get_func(char *arg))(stack_t **stack, unsigned int line_number);
+int _isdigit(char stringNum[]);
 void free_list(stack_t *head);
-void _sub(stack_t **stack, unsigned int line_number);
+
+/* Error Prototypes */
+void mallocErr(void);
+void openErr(char *file);
+void funcErr(unsigned int l_n, stack_t *h, char *text, char *opc, FILE *fd);
+void pushErr(unsigned int line_number, stack_t *head, char *text, FILE *fd);
 
 #endif
