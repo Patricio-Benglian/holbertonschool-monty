@@ -57,7 +57,7 @@ void _mul(stack_t **stack, unsigned int line_number)
 	lec = *stack;
 	if (!(*stack)->next || !(*stack)->next->next)
 	{
-		fprintf(stderr, "L%d: can't div, stack too short\n", line_number);
+		fprintf(stderr, "L%d: can't mul, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	prod = lec->next->n / lec->n;
