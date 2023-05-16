@@ -2,7 +2,8 @@
 
 /**
  * _sub - subtracts one node from another
- *
+ * @stack: stack to subtract from
+ * @line_number: number of line for error message
  */
 void _sub(stack_t **stack, unsigned int line_number)
 {
