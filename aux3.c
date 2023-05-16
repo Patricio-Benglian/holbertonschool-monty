@@ -24,7 +24,7 @@ void _sub(stack_t **stack, unsigned int line_number)
 
 /**
  * _div - divides one node from another
- * @stack: stack to subtract from
+ * @stack: stack to div from
  * @line_number: number of line for error message
  */
 void _div(stack_t **stack, unsigned int line_number)
@@ -46,7 +46,7 @@ void _div(stack_t **stack, unsigned int line_number)
 
 /**
  * _mul - multiplies one node with another
- * @stack: stack to subtract from
+ * @stack: stack to mul from
  * @line_number: number of line for error message
  */
 void _mul(stack_t **stack, unsigned int line_number)
@@ -64,4 +64,26 @@ void _mul(stack_t **stack, unsigned int line_number)
 	lec = lec->next;
 	_pop(stack, line_number);
 	lec->n = prod;
+}
+
+/**
+ * _mod - does mod of one node and another
+ * @stack: stack to mod from
+ * @line_number: number of line for error message
+ */
+void _mod(stack_t **stack, unsigned int line_number)
+{
+	stack_t *lec;
+	int modu;
+
+	lec = *stack;
+	if (!(*stack)->next || !(*stack)->next->next)
+	{
+		fprintf(stderr, "L%d: can't mod, stack too short\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	modu = lec->next->n % lec->n;
+	lec = lec->next;
+	_pop(stack, line_number);
+	lec->n = modu;
 }
