@@ -60,7 +60,7 @@ void _mul(stack_t **stack, unsigned int line_number)
 		fprintf(stderr, "L%d: can't mul, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	prod = lec->next->n / lec->n;
+	prod = lec->next->n * lec->n;
 	lec = lec->next;
 	_pop(stack, line_number);
 	lec->n = prod;
