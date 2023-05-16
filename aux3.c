@@ -38,6 +38,11 @@ void _div(stack_t **stack, unsigned int line_number)
 		fprintf(stderr, "L%d: can't div, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
+	if ((*stack)->next->next->n == 0)
+	{
+		fprintf(stderr, "L%u: division by zero\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 	quot = lec->next->n / lec->n;
 	lec = lec->next;
 	_pop(stack, line_number);
@@ -80,6 +85,11 @@ void _mod(stack_t **stack, unsigned int line_number)
 	if (!(*stack)->next || !(*stack)->next->next)
 	{
 		fprintf(stderr, "L%d: can't mod, stack too short\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	if ((*stack)->next->next->n == 0)
+	{
+		fprintf(stderr, "L%u: division by zero\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	modu = lec->next->n % lec->n;
